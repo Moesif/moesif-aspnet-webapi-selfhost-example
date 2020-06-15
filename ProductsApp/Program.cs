@@ -8,9 +8,10 @@ using Owin;
 using System.Web.Http;
 using Topshelf;
 using Moesif.Middleware;
-using ProductsApp.Settings;
+using Moesif.WebApi.SelfHost.Example.Settings;
+using System.Web.Http.Results;
 
-namespace ProductsApp
+namespace Moesif.WebApi.SelfHost.Example
 {
     public class Program
     {
@@ -53,18 +54,12 @@ namespace ProductsApp
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { controller = "Home", id = RouteParameter.Optional }
                 );
 
+            var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
+            config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
             appBuilder.UseWebApi(config);
-        }
-    }
-
-    public class HelloWorldController : ApiController
-    {
-        public string Get()
-        {
-            return "Hello, World!";
         }
     }
 }

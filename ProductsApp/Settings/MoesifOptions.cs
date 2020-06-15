@@ -6,7 +6,7 @@ using System.Net.Http;
 using Microsoft.Owin;
 using Moesif.Api.Models;
 
-namespace ProductsApp.Settings
+namespace Moesif.WebApi.SelfHost.Example.Settings
 {
     public class MoesifOptions
     {
